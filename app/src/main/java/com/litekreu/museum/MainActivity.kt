@@ -14,12 +14,21 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.Button
+import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -38,12 +47,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.litekreu.museum.ui.theme.MuseumTheme
+import com.litekreu.museum.ui.theme.Purple40
 import com.litekreu.museum.ui.theme.regular
 import com.litekreu.museum.ui.theme.torque
 import com.litekreu.museum.ui.theme.turbo
 import java.util.Locale
 
 class MainActivity : ComponentActivity() {
+    @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -70,9 +81,30 @@ val imgList = listOf(
         f1Team("Renault"), 2019)
 )
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ImageMuseum(modifier: Modifier = Modifier) {
     var index by remember { mutableStateOf(0) }
+    Column {
+        CenterAlignedTopAppBar(
+            title = {
+                Text(
+                    text = stringResource(R.string.app_name),
+                    fontFamily = regular
+                )
+            },
+            navigationIcon = {
+                IconButton(onClick = { /*TODO*/ }) {
+                    Icon(imageVector = Icons.Default.Menu, contentDescription = null,
+                        tint = Color.White)
+                }
+            },
+            colors = TopAppBarDefaults.smallTopAppBarColors(
+                containerColor = Purple40,
+                titleContentColor = Color.White
+            )
+        )
+    }
     Box (
         contentAlignment = Alignment.Center,
         modifier = Modifier.padding(bottom = 120.dp)
@@ -83,6 +115,7 @@ fun ImageMuseum(modifier: Modifier = Modifier) {
             modifier = Modifier
                 .border(width = 20.dp, color = Color.White)
                 .shadow(16.dp)
+                .size(width = 270.dp, height = 450.dp)
         )
     }
     Column(
